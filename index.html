@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor e Calculadora Binária</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            text-align: center;
+            overflow: auto;
+        }
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            justify-content: center;
+            max-width: 100%;
+            width: 100%;
+        }
+        .container {
+            border: 2px solid #000000;
+            background: #34495e;
+            border-radius: 10px;
+            padding: 20px;
+            width: 100%;
+            max-width: 280px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            position: relative;
+        }
+        h1 {
+            font-size: 15px;
+            color: #f39c12;
+            margin-bottom: 12px;
+            text-shadow: 2px 2px #2b2b2b;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            font-size: 11px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: none;
+            outline: none;
+            background-color: #16a085;
+            border: 2px solid #000000;
+            color: #fff;
+            transition: transform 0.3s, background-color 0.3s;
+            font-family: 'Press Start 2P', cursive;
+        }
+        input:focus {
+            background-color: #1abc9c;
+        }
+        button {
+            border: 2px solid #000000;
+            background-color: #e67e22;
+        }
+        button:active, button:hover { transform: scale(0.95); background-color: #d35400; }
+        .result {
+            border: 2px solid #000000;
+            background-color: #2980b9;
+            padding: 8px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 11px;
+            text-shadow: 1px 1px #2b2b2b;
+        }
+        .error {
+            color: #ce5548;
+            font-size: 9px;
+            text-align: center;
+        }
+        .buttons {
+            display: flex;
+            gap: 8px;
+            justify-content: space-between;
+        }
+        .toggle-btn {
+            width: 100%;
+            background-color: #e67e22;
+            cursor: pointer;
+            font-size: 9px;
+            text-shadow: 1px 1px #2b2b2b;
+            padding: 10px;
+            transition: background-color 0.3s;
+        }
+        .toggle-btn:hover { background-color: #d35400; }
+        .credits {
+            font-size: 10px;
+            text-shadow: 1px 1px #000000;
+            color: #bdc3c7;
+            margin-top: 20px;
+            position: absolute;
+            bottom: 15px;
+            text-align: center;
+            padding: 5px;
+            line-height: 1.5;
+        }
+        /* Responsividade para telas médias (tablets e mobile em paisagem) */
+        @media (max-width: 1024px) {
+            .container {
+                width: 80%;
+                max-width: 350px;
+                padding: 15px;
+            }
+        }
+        /* Responsividade para telas pequenas (celulares em pé) */
+        @media (max-width: 768px) {
+            .wrapper {
+                gap: 20px;
+                flex-direction: column;
+            }
+            .container {
+                width: 90%;
+                padding: 12px;
+            }
+            h1 {
+                font-size: 16px;
+            }
+            input, button {
+                font-size: 12px;
+                padding: 8px;
+            }
+        }
+        /* Responsividade para celulares muito pequenos */
+        @media (max-width: 480px) {
+            .container {
+                width: 90%;
+                padding: 10px;
+            }
+            h1 {
+                font-size: 14px;
+            }
+            .result {
+                font-size: 12px;
+            }
+            input, button {
+                font-size: 10px;
+                padding: 6px;
+            }
+            .toggle-btn {
+                font-size: 10px;
+                padding: 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Conversor Binário -->
+        <div class="container">
+            <h1>Conversor Binário</h1>
+            <input type="text" id="binInput" placeholder="Binário" oninput="convertToDecimal()">
+            <div class="result">
+                <div>Resultado Decimal:</div>
+                <br>
+                <div id="binToDecResult">0</div>
+            </div>
+
+            <input type="number" id="decInput" placeholder="Decimal" oninput="convertToBinary()">
+            <div class="result">
+                <div>Resultado Binário:</div>
+                <br>
+                <div id="decToBinResult">0</div>
+            </div>
+        </div>
+
+        <!-- Calculadora Binária -->
+        <div class="container">
+            <h1 id="calcTitle">Calculadora Binária</h1>
+            <input type="text" id="binInputA" placeholder="Binário A">
+            <input type="text" id="binInputB" placeholder="Binário B">
+            <div class="buttons">
+                <button onclick="setOperation('sum')">+</button>
+                <button onclick="setOperation('subtract')">-</button>
+                <button onclick="setOperation('multiply')">*</button>
+                <button onclick="setOperation('divide')">/</button>
+            </div>
+            <div class="result">
+                <div>Resultado:</div>
+                <br>
+                <div id="binCalcResult">0</div>
+            </div>
+            <button class="toggle-btn" onclick="toggleBinaryDecimal()">Alternar para Decimal</button>
+        </div>
+    </div>
+
+    <div class="credits">
+        Projeto Integrador: Conversor e Calculadora Binária.<br>
+        Alunos: Davi R. do Nascimento | João M. S. Ferreira | José O. S. Junior | Luiz G. M. Barbosa<br>
+        Curso: Engenharia da Computação - 2º período | UNITAU
+    </div>
+
+    <script>
+        let isBinaryMode = true;
+        let operation = null;
+
+        // Função de conversão Binário -> Decimal
+        function convertToDecimal() {
+            let binInput = document.getElementById('binInput').value;
+            let binToDecResult = document.getElementById('binToDecResult');
+            if (binInput === "") {
+                binToDecResult.textContent = '0';
+                binToDecResult.style.color = 'white';
+            } else if (/^[01]+$/.test(binInput)) {
+                binToDecResult.textContent = parseInt(binInput, 2);
+                binToDecResult.style.color = 'white';
+            } else {
+                binToDecResult.textContent = 'Binário inválido';
+                binToDecResult.style.color = 'red';
+            }
+        }
+
+        // Função de conversão Decimal -> Binário
+        function convertToBinary() {
+            let decInput = document.getElementById('decInput').value;
+            let decToBinResult = document.getElementById('decToBinResult');
+            if (decInput === "") {
+                decToBinResult.textContent = '0';
+                decToBinResult.style.color = 'white';
+            } else if (!isNaN(decInput) && decInput.trim() !== "" && Number(decInput) >= 0) {
+                decToBinResult.textContent = parseInt(decInput).toString(2);
+                decToBinResult.style.color = 'white';
+            } else {
+                decToBinResult.textContent = 'Decimal inválido';
+                decToBinResult.style.color = 'red';
+           }
+        }
+
+        // Função para alternar entre Binário e Decimal
+        function toggleBinaryDecimal() {
+            isBinaryMode = !isBinaryMode;
+            const button = document.querySelector('.toggle-btn');
+            const calcTitle = document.getElementById('calcTitle');
+            if (isBinaryMode) {
+                button.textContent = 'Alternar para Decimal';
+                calcTitle.textContent = 'Calculadora Binária';
+                document.getElementById('binInputA').setAttribute('placeholder', 'Binário A');
+                document.getElementById('binInputB').setAttribute('placeholder', 'Binário B');
+            } else {
+                button.textContent = 'Alternar para Binário';
+                calcTitle.textContent = 'Calculadora Decimal';
+                document.getElementById('binInputA').setAttribute('placeholder', 'Decimal A');
+                document.getElementById('binInputB').setAttribute('placeholder', 'Decimal B');
+            }
+        }
+
+        // Função para calcular a operação
+        function setOperation(op) {
+            operation = op;
+            calculate();
+        }
+
+        // Função de cálculo (Binário ou Decimal)
+        function calculate() {
+            let inputA = document.getElementById('binInputA').value;
+            let inputB = document.getElementById('binInputB').value;
+            let calcResult = document.getElementById('binCalcResult');
+
+            if (inputA === "" || inputB === "") {
+                calcResult.textContent = '0';
+                return;
+            }
+
+            // Se estiver no modo binário
+            if (operation && isBinaryMode && /^[01]+$/.test(inputA) && /^[01]+$/.test(inputB)) {
+                let numA = parseInt(inputA, 2);
+                let numB = parseInt(inputB, 2);
+                let result;
+                if (operation === 'sum') result = numA + numB;
+                else if (operation === 'subtract') result = numA - numB;
+                else if (operation === 'multiply') result = numA * numB;
+                else if (operation === 'divide') result = numB !== 0 ? numA / numB : "Erro";
+                calcResult.textContent = result.toString(2);
+                calcResult.style.color = 'white';
+            } else if (operation && !isBinaryMode && !isNaN(inputA) && !isNaN(inputB)) {
+                // Se estiver no modo decimal
+                let numA = parseFloat(inputA);
+                let numB = parseFloat(inputB);
+                let result;
+                if (operation === 'sum') result = numA + numB;
+                else if (operation === 'subtract') result = numA - numB;
+                else if (operation === 'multiply') result = numA * numB;
+                else if (operation === 'divide') result = numB !== 0 ? numA / numB : "Erro";
+                calcResult.textContent = result;
+                calcResult.style.color = 'white';
+            } else {
+                calcResult.textContent = 'Inválido';
+                calcResult.style.color = 'red';
+            }
+        }
+
+        function resetResultIfEmpty() {
+            let inputA = document.getElementById('binInputA').value;
+            let inputB = document.getElementById('binInputB').value;
+            let calcResult = document.getElementById('binCalcResult');
+
+            if (inputA === "" || inputB === "") {
+                calcResult.textContent = '0'; 
+                calcResult.style.color = 'white'; 
+            }
+        }
+
+        document.getElementById('binInputA').addEventListener('input', resetResultIfEmpty);
+        document.getElementById('binInputB').addEventListener('input', resetResultIfEmpty);
+    </script>
+</body>
+</html>
