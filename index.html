@@ -14,19 +14,22 @@
             color: #ecf0f1;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             height: 100vh;
+            overflow: hidden;
             flex-direction: column;
             text-align: center;
-            overflow: auto;
+            padding: 20px;
         }
         .wrapper {
             display: flex;
             flex-direction: column;
             gap: 30px;
-            justify-content: center;
-            max-width: 100%;
             width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            flex-grow: 1;
+            overflow-y: auto;
         }
         .container {
             border: 2px solid #000000;
@@ -34,20 +37,21 @@
             border-radius: 10px;
             padding: 20px;
             width: 100%;
-            max-width: 280px;
+            max-width: 400px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.4);
             position: relative;
+            margin: 0 auto;
         }
         h1 {
-            font-size: 15px;
+            font-size: 18px;
             color: #f39c12;
             margin-bottom: 12px;
             text-shadow: 2px 2px #2b2b2b;
         }
         input, button {
             width: 100%;
-            padding: 10px;
-            font-size: 11px;
+            padding: 12px;
+            font-size: 14px;
             border-radius: 8px;
             margin-bottom: 10px;
             border: none;
@@ -65,20 +69,18 @@
             border: 2px solid #000000;
             background-color: #e67e22;
         }
-        button:active, button:hover { transform: scale(0.95); background-color: #d35400; }
+        button:active, button:hover { 
+            transform: scale(0.95); 
+            background-color: #d35400; 
+        }
         .result {
             border: 2px solid #000000;
             background-color: #2980b9;
             padding: 8px;
             border-radius: 8px;
             margin-bottom: 10px;
-            font-size: 11px;
+            font-size: 14px;
             text-shadow: 1px 1px #2b2b2b;
-        }
-        .error {
-            color: #ce5548;
-            font-size: 9px;
-            text-align: center;
         }
         .buttons {
             display: flex;
@@ -89,31 +91,36 @@
             width: 100%;
             background-color: #e67e22;
             cursor: pointer;
-            font-size: 9px;
+            font-size: 12px;
             text-shadow: 1px 1px #2b2b2b;
-            padding: 10px;
+            padding: 12px;
             transition: background-color 0.3s;
         }
-        .toggle-btn:hover { background-color: #d35400; }
+        .toggle-btn:hover { 
+            background-color: #d35400; 
+        }
         .credits {
-            font-size: 10px;
+            font-size: 12px;
             text-shadow: 1px 1px #000000;
             color: #bdc3c7;
-            margin-top: 20px;
-            position: absolute;
-            bottom: 15px;
             text-align: center;
-            padding: 5px;
-            line-height: 1.5;
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            padding: 10px;
         }
         /* Responsividade para telas médias (tablets e mobile em paisagem) */
         @media (max-width: 1024px) {
             .container {
-                width: 80%;
-                max-width: 350px;
+                max-width: 90%;
                 padding: 15px;
             }
+            h1 {
+                font-size: 16px;
+            }
         }
+
         /* Responsividade para telas pequenas (celulares em pé) */
         @media (max-width: 768px) {
             .wrapper {
@@ -121,36 +128,37 @@
                 flex-direction: column;
             }
             .container {
-                width: 90%;
+                width: 100%;
                 padding: 12px;
             }
             h1 {
-                font-size: 16px;
+                font-size: 14px;
             }
             input, button {
-                font-size: 12px;
-                padding: 8px;
+                font-size: 14px;
+                padding: 10px;
+            }
+            .result {
+                font-size: 14px;
             }
         }
+
         /* Responsividade para celulares muito pequenos */
         @media (max-width: 480px) {
             .container {
-                width: 90%;
+                width: 100%;
                 padding: 10px;
             }
             h1 {
                 font-size: 14px;
             }
-            .result {
-                font-size: 12px;
-            }
             input, button {
-                font-size: 10px;
-                padding: 6px;
+                font-size: 12px;
+                padding: 8px;
             }
             .toggle-btn {
-                font-size: 10px;
-                padding: 6px;
+                font-size: 12px;
+                padding: 10px;
             }
         }
     </style>
@@ -300,19 +308,7 @@
             }
         }
 
-        function resetResultIfEmpty() {
-            let inputA = document.getElementById('binInputA').value;
-            let inputB = document.getElementById('binInputB').value;
-            let calcResult = document.getElementById('binCalcResult');
-
-            if (inputA === "" || inputB === "") {
-                calcResult.textContent = '0'; 
-                calcResult.style.color = 'white'; 
-            }
-        }
-
-        document.getElementById('binInputA').addEventListener('input', resetResultIfEmpty);
-        document.getElementById('binInputB').addEventListener('input', resetResultIfEmpty);
     </script>
 </body>
 </html>
+
