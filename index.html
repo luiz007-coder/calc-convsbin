@@ -92,61 +92,67 @@
         }
         .toggle-btn:hover { background-color: #d35400; }
         .credits {
-    font-size: 8px; /* Tamanho reduzido para os créditos */
-    text-shadow: 1px 1px #000000;
-    color: #bdc3c7;
-    text-align: center;
-    position: fixed;
-    bottom: 5px;
-    left: 0;
-    right: 0;
-    padding: 5px;
-}
+            font-size: 8px; /* Tamanho reduzido para os créditos */
+            text-shadow: 1px 1px #000000;
+            color: #bdc3c7;
+            text-align: center;
+            position: fixed;
+            bottom: 5px;
+            left: 0;
+            right: 0;
+            padding: 5px;
+        }
+        /* Responsividade para telas médias (tablets e mobile em paisagem) */
+        @media (max-width: 1024px) {
+            .container {
+                max-width: 90%;
+                padding: 15px;
+            }
+            h1 {
+                font-size: 16px;
+            }
+        }
 
-@media (max-width: 768px) {
-    .wrapper {
-        gap: 20px;
-    }
+        /* Responsividade para telas pequenas (celulares em pé) */
+        @media (max-width: 768px) {
+            .wrapper {
+                gap: 20px;
+                flex-direction: column;
+            }
+            .container {
+                width: 100%;
+                padding: 12px;
+            }
+            h1 {
+                font-size: 14px;
+            }
+            input, button {
+                font-size: 14px;
+                padding: 10px;
+            }
+            .result {
+                font-size: 14px;
+            }
+        }
 
-    .container {
-        width: 250px;
-        padding: 15px;
-    }
-
-    h1 {
-        font-size: 16px;
-    }
-
-    input, button {
-        font-size: 12px;
-        padding: 8px;
-    }
-}
-
-@media (max-width: 480px) {
-    .container {
-        width: 200px;
-        padding: 12px;
-    }
-
-    h1 {
-        font-size: 14px;
-    }
-
-    .result {
-        font-size: 14px;
-    }
-
-    input, button {
-        font-size: 10px;
-        padding: 6px;
-    }
-
-    .toggle-btn {
-        font-size: 10px;
-        padding: 6px;
-    }
-}
+        /* Responsividade para celulares muito pequenos */
+        @media (max-width: 480px) {
+            .container {
+                width: 100%;
+                padding: 10px;
+            }
+            h1 {
+                font-size: 14px;
+            }
+            input, button {
+                font-size: 12px;
+                padding: 8px;
+            }
+            .toggle-btn {
+                font-size: 12px;
+                padding: 10px;
+            }
+        }
     </style>
 </head>
 <body>
