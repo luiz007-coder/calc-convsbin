@@ -18,6 +18,7 @@
             height: 100vh;
             flex-direction: column;
             text-align: center;
+            overflow-x: hidden;
         }
         .wrapper {
             display: flex;
@@ -92,18 +93,17 @@
         }
         .toggle-btn:hover { background-color: #d35400; }
 
-        /* Créditos para dispositivos móveis */
+        /* Créditos - fixos no rodapé para dispositivos móveis */
         .credits {
             font-size: 10px;
             text-shadow: 1px 1px #000000;
             color: #bdc3c7;
-            margin-top: 20px;
-            position: absolute;
-            bottom: 15px;
             text-align: center;
             padding: 5px;
             line-height: 1.5;
-            display: none; /* Ocultamos inicialmente */
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
         }
 
         @media (max-width: 768px) {
@@ -123,14 +123,12 @@
             /* Créditos fixos no final da página para dispositivos móveis */
             .credits {
                 font-size: 10px;
-                display: block; /* Mostra créditos para dispositivos móveis */
                 position: fixed;
                 bottom: 0;
-                width: 100%;
-                text-align: center;
                 background-color: #34495e;
+                text-align: center;
+                width: 100%;
                 padding: 5px;
-                line-height: 1.5;
             }
         }
     </style>
