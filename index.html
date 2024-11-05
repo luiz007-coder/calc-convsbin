@@ -94,8 +94,8 @@
             font-size: 10px;
             text-shadow: 1px 1px #000000;
             color: #bdc3c7;
-            margin-top: 20px;
-            position: absolute;
+            margin-top: 10px;
+            position: fixed;
             bottom: 15px;
             text-align: center;
             padding: 5px;
@@ -117,9 +117,9 @@
 </head>
 <body>
     <div class="wrapper">
-        <!-- Conversor Binário -->
         <div class="container">
             <h1>Conversor Binário</h1>
+            <br>
             <input type="text" id="binInput" placeholder="Binário" oninput="convertToDecimal()">
             <div class="result">
                 <div>Resultado Decimal:</div>
@@ -129,13 +129,14 @@
             <input type="number" id="decInput" placeholder="Decimal" oninput="convertToBinary()">
             <div class="result">
                 <div>Resultado Binário:</div>
+                <br>
                 <div id="decToBinResult">0</div>
             </div>
         </div>
 
-        <!-- Calculadora Binária -->
         <div class="container">
             <h1 id="calcTitle">Calculadora Binária</h1>
+            <br>
             <input type="text" id="binInputA" placeholder="Binário A">
             <input type="text" id="binInputB" placeholder="Binário B">
             <div class="buttons">
@@ -146,13 +147,13 @@
             </div>
             <div class="result">
                 <div>Resultado:</div>
+                <br>
                 <div id="binCalcResult">0</div>
             </div>
             <button class="toggle-btn" onclick="toggleBinaryDecimal()">Alternar para Decimal</button>
         </div>
     </div>
 
-    <!-- Créditos -->
     <div class="credits">
         Alunos: Davi R. do Nascimento | João M. S. Ferreira | José O. S. Junior | Luiz G. M. Barbosa<br>
         Curso: Engenharia da Computação - 2º período | UNITAU
@@ -162,7 +163,6 @@
         let isBinaryMode = true;
         let operation = null;
 
-        // Função de binário para decimal
         function convertToDecimal() {
             let binInput = document.getElementById('binInput').value;
             let binToDecResult = document.getElementById('binToDecResult');
@@ -178,7 +178,6 @@
             }
         }
 
-        // Função de decimal para binário
         function convertToBinary() {
             let decInput = document.getElementById('decInput').value;
             let decToBinResult = document.getElementById('decToBinResult');
@@ -194,7 +193,6 @@
            }
         }
 
-        // Alterna entre binário e decimal
         function toggleBinaryDecimal() {
             isBinaryMode = !isBinaryMode;
             const button = document.querySelector('.toggle-btn');
@@ -212,13 +210,11 @@
             }
         }
 
-        // Função para setar a operação (+, -, *, /)
         function setOperation(op) {
             operation = op;
             calculate();
         }
 
-        // Função de cálculo (binário ou decimal)
         function calculate() {
             let inputA = document.getElementById('binInputA').value;
             let inputB = document.getElementById('binInputB').value;
@@ -255,7 +251,6 @@
             }
         }
 
-        // Resetar o resultado se o input estiver vazio
         function resetResultIfEmpty() {
             let inputA = document.getElementById('binInputA').value;
             let inputB = document.getElementById('binInputB').value;
@@ -272,3 +267,4 @@
     </script>
 </body>
 </html>
+
