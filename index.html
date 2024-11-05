@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Conversor e Calculadora Binária</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
@@ -14,25 +14,27 @@
             color: #ecf0f1;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
+            align-items: center;
             flex-direction: column;
-            padding: 20px;
-            height: 100%;
-            touch-action: manipulation;
-            overflow-y: auto;
+            height: 100vh;
+            text-align: center;
         }
         .wrapper {
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
             gap: 30px;
-            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 20px;
         }
         .container {
             border: 2px solid #000000;
             background: #34495e;
             border-radius: 10px;
             padding: 20px;
-            width: 280px;
+            width: 100%;
+            max-width: 320px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.4);
             position: relative;
         }
@@ -63,10 +65,7 @@
             border: 2px solid #000000;
             background-color: #e67e22;
         }
-        button:active, button:hover { 
-            transform: scale(0.95); 
-            background-color: #d35400; 
-        }
+        button:active, button:hover { transform: scale(0.95); background-color: #d35400; }
         .result {
             border: 2px solid #000000;
             background-color: #2980b9;
@@ -90,70 +89,29 @@
             padding: 10px;
             transition: background-color 0.3s;
         }
-        .toggle-btn:hover { 
-            background-color: #d35400; 
-        }
+        .toggle-btn:hover { background-color: #d35400; }
         .credits {
-            font-size: 8px; /* Tamanho reduzido para os créditos */
+            font-size: 10px;
             text-shadow: 1px 1px #000000;
             color: #bdc3c7;
+            margin-top: 20px;
+            position: absolute;
+            bottom: 15px;
             text-align: center;
-            position: fixed;
-            bottom: 5px;
-            left: 0;
-            right: 0;
             padding: 5px;
+            line-height: 1.5;
         }
-        /* Responsividade para telas médias (tablets e mobile em paisagem) */
-        @media (max-width: 1024px) {
-            .container {
-                max-width: 90%;
-                padding: 15px;
-            }
-            h1 {
-                font-size: 16px;
-            }
-        }
-
-        /* Responsividade para telas pequenas (celulares em pé) */
         @media (max-width: 768px) {
-            .wrapper {
-                gap: 20px;
-                flex-direction: column;
-            }
-            .container {
-                width: 100%;
-                padding: 12px;
-            }
-            h1 {
-                font-size: 14px;
-            }
-            input, button {
-                font-size: 14px;
-                padding: 10px;
-            }
-            .result {
-                font-size: 14px;
-            }
+            .container { width: 90%; padding: 15px; }
+            h1 { font-size: 16px; }
+            input, button { font-size: 12px; padding: 8px; }
         }
-
-        /* Responsividade para celulares muito pequenos */
         @media (max-width: 480px) {
-            .container {
-                width: 100%;
-                padding: 10px;
-            }
-            h1 {
-                font-size: 14px;
-            }
-            input, button {
-                font-size: 12px;
-                padding: 8px;
-            }
-            .toggle-btn {
-                font-size: 12px;
-                padding: 10px;
-            }
+            .container { width: 90%; padding: 12px; }
+            h1 { font-size: 14px; }
+            .result { font-size: 14px; }
+            input, button { font-size: 10px; padding: 6px; }
+            .toggle-btn { font-size: 10px; padding: 6px; }
         }
     </style>
 </head>
@@ -165,14 +123,12 @@
             <input type="text" id="binInput" placeholder="Binário" oninput="convertToDecimal()">
             <div class="result">
                 <div>Resultado Decimal:</div>
-                <br>
                 <div id="binToDecResult">0</div>
             </div>
 
             <input type="number" id="decInput" placeholder="Decimal" oninput="convertToBinary()">
             <div class="result">
                 <div>Resultado Binário:</div>
-                <br>
                 <div id="decToBinResult">0</div>
             </div>
         </div>
@@ -190,15 +146,14 @@
             </div>
             <div class="result">
                 <div>Resultado:</div>
-                <br>
                 <div id="binCalcResult">0</div>
             </div>
             <button class="toggle-btn" onclick="toggleBinaryDecimal()">Alternar para Decimal</button>
         </div>
     </div>
 
+    <!-- Créditos -->
     <div class="credits">
-        Projeto Integrador: Conversor e Calculadora Binária.<br>
         Alunos: Davi R. do Nascimento | João M. S. Ferreira | José O. S. Junior | Luiz G. M. Barbosa<br>
         Curso: Engenharia da Computação - 2º período | UNITAU
     </div>
@@ -207,7 +162,7 @@
         let isBinaryMode = true;
         let operation = null;
 
-        // Função de conversão Binário -> Decimal
+        // Função de binário para decimal
         function convertToDecimal() {
             let binInput = document.getElementById('binInput').value;
             let binToDecResult = document.getElementById('binToDecResult');
@@ -223,7 +178,7 @@
             }
         }
 
-        // Função de conversão Decimal -> Binário
+        // Função de decimal para binário
         function convertToBinary() {
             let decInput = document.getElementById('decInput').value;
             let decToBinResult = document.getElementById('decToBinResult');
@@ -236,10 +191,10 @@
             } else {
                 decToBinResult.textContent = 'Decimal inválido';
                 decToBinResult.style.color = 'red';
-            }
+           }
         }
 
-        // Função para alternar entre Binário e Decimal
+        // Alterna entre binário e decimal
         function toggleBinaryDecimal() {
             isBinaryMode = !isBinaryMode;
             const button = document.querySelector('.toggle-btn');
@@ -257,13 +212,13 @@
             }
         }
 
-        // Função para calcular a operação
+        // Função para setar a operação (+, -, *, /)
         function setOperation(op) {
             operation = op;
             calculate();
         }
 
-        // Função de cálculo (Binário ou Decimal)
+        // Função de cálculo (binário ou decimal)
         function calculate() {
             let inputA = document.getElementById('binInputA').value;
             let inputB = document.getElementById('binInputB').value;
@@ -274,7 +229,6 @@
                 return;
             }
 
-            // Se estiver no modo binário
             if (operation && isBinaryMode && /^[01]+$/.test(inputA) && /^[01]+$/.test(inputB)) {
                 let numA = parseInt(inputA, 2);
                 let numB = parseInt(inputB, 2);
@@ -286,7 +240,6 @@
                 calcResult.textContent = result.toString(2);
                 calcResult.style.color = 'white';
             } else if (operation && !isBinaryMode && !isNaN(inputA) && !isNaN(inputB)) {
-                // Se estiver no modo decimal
                 let numA = parseFloat(inputA);
                 let numB = parseFloat(inputB);
                 let result;
@@ -301,7 +254,21 @@
                 calcResult.style.color = 'red';
             }
         }
+
+        // Resetar o resultado se o input estiver vazio
+        function resetResultIfEmpty() {
+            let inputA = document.getElementById('binInputA').value;
+            let inputB = document.getElementById('binInputB').value;
+            let calcResult = document.getElementById('binCalcResult');
+
+            if (inputA === "" || inputB === "") {
+                calcResult.textContent = '0'; 
+                calcResult.style.color = 'white'; 
+            }
+        }
+
+        document.getElementById('binInputA').addEventListener('input', resetResultIfEmpty);
+        document.getElementById('binInputB').addEventListener('input', resetResultIfEmpty);
     </script>
 </body>
 </html>
-
