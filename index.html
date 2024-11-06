@@ -64,6 +64,9 @@
             background-color: #e67e22;
         }
         button:active, button:hover { transform: scale(0.95); background-color: #d35400; }
+        button:focus {
+            outline: none;
+        }
         .result {
             border: 2px solid #000000;
             background-color: #2980b9;
@@ -93,18 +96,38 @@
             transition: background-color 0.3s;
         }
         .toggle-btn:hover { background-color: #d35400; }
+        .toggle-btn:focus {
+            outline: none;
+        }
         .credits {
             font-size: 8px;
-            text-shadow: 1px 1px #000000;
-            color: #bdc3c7;
-            text-align: center;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 5px;
-            line-height: 1.5;
+    text-shadow: 1px 1px #000000;
+    color: #bdc3c7;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 5px;
+    line-height: 1.75;
         }
+
+        @media (max-width: 600px) {
+    .credits {
+        font-size: 12px;
+        padding: 10px;
+        line-height: 1.5;
+    }
+}
+
+@media (max-width: 400px) {
+    .credits {
+        font-size: 10px;
+        padding: 8px;
+        line-height: 1.4;
+    }
+}
+
 @media (max-width: 1024px) {
     .wrapper {
         justify-content: center;
@@ -160,6 +183,82 @@
         font-size: 12px;
         padding: 10px;
     }
+
+}
+
+@media (max-width: 768px) {
+    .help-panel {
+        width: 90%;
+        max-width: 400px;
+        padding: 15px;
+        top: 40%;
+    }
+
+    .help-panel h2 {
+        font-size: 12px;
+    }
+
+    .help-panel p {
+        font-size: 9px;
+    }
+
+    .help-btn {
+        font-size: 12px;
+        padding: 12px;
+        width: 100%;
+    }
+
+    .help-btn:hover {
+        background-color: #d35400;
+    }
+}
+
+.help-panel {
+    display: none;
+    background-color: #34495e;
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid #000000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 500px;
+    z-index: 1000;
+}
+
+.help-panel h2 {
+    font-size: 13px;
+    text-shadow: 1px 1px #2b2b2b;
+    color: #f39c12;
+}
+
+.help-panel p {
+    font-size: 10px;
+    text-shadow: 1px 1px #2b2b2b;
+    color: #ecf0f1;
+    line-height: 1.75;
+    margin-bottom: 10px;
+}
+
+.help-btn {
+    background-color: #e67e22;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 10px;
+    width: 120px;
+    border: 2px solid #000000;
+    cursor: pointer;
+}
+
+.help-btn:hover {
+    background-color: #d35400;
+}
+
+.help-btn:focus {
+    outline: none;
 }
     </style>
 </head>
@@ -203,6 +302,25 @@
             </div>
             <button class="toggle-btn" onclick="toggleBinaryDecimal()">Alternar para Decimal</button>
         </div>
+    </div>
+    <br>
+    <button class="help-btn" onclick="toggleHelpPanel()">Ajuda</button>
+
+    <div class="help-panel" id="helpPanel">
+        <h2>Ajuda e Explicações</h2>
+        <br>
+        <p><strong>O que são números binários, decimais e outras bases?</strong></p>
+        <p>Os números binários são representados por dois símbolos: 0 e 1. Eles são a base para o sistema de computação digital.</p>
+        <p>O sistema decimal é o sistema de numeração padrão que usamos no cotidiano, baseado em 10 símbolos: 0-9.</p>
+        <p>Outras bases como octal (base 8) e hexadecimal (base 16) são utilizadas em computação para representar números de forma compacta.</p>
+        
+        <p><strong>Como as conversões funcionam?</strong></p>
+        <p>Para converter de binário para decimal, você usa a fórmula de soma dos valores das potências de 2. Exemplo: 101 (binário) = 1×2² + 0×2¹ + 1×2⁰ = 5 (decimal).</p>
+        
+        <p><strong>Operações suportadas</strong></p>
+        <p>Você pode realizar operações de soma, subtração, multiplicação e divisão entre números binários ou decimais, dependendo do modo selecionado.</p>
+        
+        <button onclick="toggleHelpPanel()">Fechar</button>
     </div>
 
     <div class="credits">
@@ -317,6 +435,16 @@
             if (inputA === "" || inputB === "") {
                 calcResult.textContent = '0'; 
                 calcResult.style.color = 'white'; 
+            }
+        }
+
+        // função p abrir menu ajuda
+        function toggleHelpPanel() {
+            const helpPanel = document.getElementById('helpPanel');
+            if (helpPanel.style.display === 'none' || helpPanel.style.display === '') {
+            helpPanel.style.display = 'block';
+            } else {
+            helpPanel.style.display = 'none';
             }
         }
 
