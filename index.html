@@ -64,7 +64,6 @@
             background-color: #e67e22;
             transition: transform 0.3s;
         }
-     button:hover { transform: scale(0.95); background-color: #d35400; }
 
         .result {
             border: 2px solid #000000;
@@ -94,7 +93,10 @@
             padding: 10px;
             transition: transform 0.3s;
         }
-        .toggle-btn:hover { transform: scale(0.95); background-color: #d35400; }
+        
+        button:active, .toggle-btn:active, .help-btn:active {
+    background-color: #d35400;
+}
 
         .credits {
             font-size: 8px;
@@ -130,13 +132,12 @@
         justify-content: center;
         justify-content: flex-start;
         gap: 10px;
-        height: 100vh;
     }
     .container {
         max-width: 90%;
         padding: 15px;
         margin: 0 auto;
-        margin-top: 7px;
+        margin-top: 0;
     }
     h1 {
         font-size: 16px;
@@ -152,13 +153,12 @@
         justify-content: center;
         justify-content: flex-start;
         gap: 10px;
-        height: 100vh;
     }
     .container {
         width: 100%;
         padding: 12px;
         margin: 0 auto;
-        margin-top: 7px;
+        margin-top: 0;
     }
     h1 {
         font-size: 14px;
@@ -181,13 +181,12 @@
         justify-content: center;
         justify-content: flex-start;
         gap: 10px;
-        height: 100vh;
     }
     .container {
         width: 100%;
         padding: 10px;
         margin: 0 auto;
-        margin-top: 7px;
+        margin-top: 0;
     }
     h1 {
         font-size: 14px;
@@ -281,8 +280,6 @@
     cursor: pointer;
     transition: transform 0.3s;
 }
-
-.help-btn:hover { transform: scale(0.95); background-color: #d35400; }
 
     </style>
 </head>
