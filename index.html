@@ -403,6 +403,12 @@
     cursor: pointer;
 }
 
+#stepsOutput {
+    overflow: auto;
+    line-height: 1.5;
+    font-size: 8px;
+}
+
     </style>
 </head>
 <body>
@@ -420,7 +426,7 @@
         <br>
 
         <div class="w-credits">
-            <strong>Feito por:</strong> Luiz G. M. Barbosa | Davi R. do Nascimento | João M. S. Ferreira | José O. S. Junior
+            Feito por: Luiz G. M. Barbosa
         </div>
         
         <button class="welcome-btn" onclick="startCalculadora()">Começar</button>
@@ -464,6 +470,12 @@
                 <div id="binCalcResult">0</div>
             </div>
             <button class="toggle-btn" onclick="toggleBinaryDecimal()">Alternar para Decimal</button>
+        </div>
+
+        <div class="container">
+            <h1>Passos do cálculo</h1>
+            <br>
+            <div id="stepsOutput">Nenhum cálculo realizado ainda.</div>
         </div>
     </div>
     <br>
@@ -553,42 +565,52 @@
 
         // função calc binário ou dec
         function calculate() {
-            let inputA = document.getElementById('binInputA').value;
-            let inputB = document.getElementById('binInputB').value;
-            let calcResult = document.getElementById('binCalcResult');
+    let inputA = document.getElementById('binInputA').value;
+    let inputB = document.getElementById('binInputB').value;
+    let calcResult = document.getElementById('binCalcResult');
 
-            if (inputA === "" || inputB === "") {
-                calcResult.textContent = '0';
-                return;
-            }
+    if (inputA === "" || inputB === "") {
+        calcResult.textContent = '0';
+        return;
+    }
 
-            // binário p dec
-            if (operation && isBinaryMode && /^[01]+$/.test(inputA) && /^[01]+$/.test(inputB)) {
-                let numA = parseInt(inputA, 2);
-                let numB = parseInt(inputB, 2);
-                let result;
-                if (operation === 'sum') result = numA + numB;
-                else if (operation === 'subtract') result = numA - numB;
-                else if (operation === 'multiply') result = numA * numB;
-                else if (operation === 'divide') result = numB !== 0 ? numA / numB : "Erro";
-                calcResult.textContent = result.toString(2);
-                calcResult.style.color = 'white';
-            } else if (operation && !isBinaryMode && !isNaN(inputA) && !isNaN(inputB)) {
-                // calc dec aqui
-                let numA = parseFloat(inputA);
-                let numB = parseFloat(inputB);
-                let result;
-                if (operation === 'sum') result = numA + numB;
-                else if (operation === 'subtract') result = numA - numB;
-                else if (operation === 'multiply') result = numA * numB;
-                else if (operation === 'divide') result = numB !== 0 ? numA / numB : "Erro";
-                calcResult.textContent = result;
-                calcResult.style.color = 'white';
-            } else {
-                calcResult.textContent = 'Inválido';
-                calcResult.style.color = 'red';
-            }
+    let numA, numB, result;
+
+    if (isBinaryMode) {
+        // Converte de binário para decimal
+        if (/^[01]+$/.test(inputA) && /^[01]+$/.test(inputB)) {
+            numA = parseInt(inputA, 2);
+            numB = parseInt(inputB, 2);
+        } else {
+            calcResult.textContent = 'Inválido';
+            document.getElementById('stepsOutput').innerHTML = 'Cálculo inválido. Verifique os valores de entrada.';
+            return;
         }
+    } else {
+        // Converte de decimal
+        numA = parseFloat(inputA);
+        numB = parseFloat(inputB);
+    }
+
+    if (operation === 'sum') {
+        result = numA + numB;
+    } else if (operation === 'subtract') {
+        result = numA - numB;
+    } else if (operation === 'multiply') {
+        result = numA * numB;
+    } else if (operation === 'divide') {
+        result = numB !== 0 ? numA / numB : "Erro";
+    }
+
+    // Atualiza o resultado de acordo com o modo
+    if (isBinaryMode) {
+        calcResult.textContent = result.toString(2); // Mostra o resultado em binário
+        generateCalculationSteps(numA, numB, operation, true); // Passa true para indicar que é binário
+    } else {
+        calcResult.textContent = result; // Mostra o resultado em decimal
+        generateCalculationSteps(numA, numB, operation, false); // Passa false para indicar que é decimal
+    }
+}
 
         function resetResultIfEmpty() {
             let inputA = document.getElementById('binInputA').value;
@@ -626,6 +648,97 @@ function startCalculadora() {
                 document.getElementById('mainContent').style.display = 'flex';
             }, 500);
         }
+
+        function generateCalculationSteps(numA, numB, operation, isBinary) {
+    let steps = '';
+
+    if (isBinary) {
+        const binA = numA.toString(2);
+        const binB = numB.toString(2);
+        
+        steps += `1. Números em binário:<br><br> ${binA} (A) e ${binB} (B)<br><br><br>`;
+
+        if (operation === 'sum') {
+            steps += `2. Operação:<br><br> ${binA} + ${binB}<br><br><br>`;
+            steps += `   Montando a conta:<br><br>`;
+            steps += `     ${binA.padStart(Math.max(binA.length, binB.length), ' ')}<br>`;
+            steps += `   + ${binB.padStart(Math.max(binA.length, binB.length), ' ')}<br>`;
+            steps += `   ---------<br>`;
+            const result = (numA + numB).toString(2);
+            steps += `     ${result.padStart(Math.max(binA.length, binB.length), ' ')}<br>`;
+        } else if (operation === 'subtract') {
+            steps += `2. Operação:<br><br> ${binA} - ${binB}<br><br><br>`;
+            steps += `   Montando a conta:<br><br>`;
+            steps += `     ${binA.padStart(Math.max(binA.length, binB.length), ' ')}<br>`;
+            steps += `   - ${binB.padStart(Math.max(binA.length, binB.length), ' ')}<br>`;
+            steps += `   ---------<br>`;
+            const result = (numA - numB).toString(2);
+            steps += `     ${result.padStart(Math.max(binA.length, binB.length), ' ')}<br>`;
+        } else if (operation === 'multiply') {
+            steps += `2. Operação:<br><br> ${binA} * ${binB}<br><br><br>`;
+            steps += `   Montando a conta:<br><br>`;
+            steps += `     ${binA.padStart(Math.max(binA.length, binB.length), ' ')}<br>`;
+            steps += `   * ${binB.padStart(Math.max(binA.length, binB.length), ' ')}<br>`;
+            steps += `   ---------<br>`;
+            const result = (numA * numB).toString(2);
+            steps += `     ${result.padStart(Math.max(binA.length, binB.length), ' ')}<br>`;
+        } else if (operation === 'divide') {
+            steps += `2. Operação:<br><br> ${binA} / ${binB}<br><br><br>`;
+            if (numB !== 0) {
+                steps += `   Montando a conta:<br><br>`;
+                steps += `     ${binA.padStart(Math.max(binA.length, binB.length), ' ')}<br>`;
+                steps += `   / ${binB.padStart(Math.max(binA.length, binB.length), ' ')}<br>`;
+                steps += `   ---------<br>`;
+                const result = (numA / numB).toString(2);
+                steps += `     ${result.padStart(Math.max(binA.length, binB.length), ' ')}<br>`;
+            } else {
+                steps += `   <br>Divisão por zero não é permitida.<br>`;
+            }
+        }
+    } else {
+        steps += `1. Números em decimal:<br><br> ${numA} (A) e ${numB} (B)<br><br><br>`;
+        
+        if (operation === 'sum') {
+            steps += `2. Operação:<br><br> ${numA} + ${numB}<br><br><br>`;
+            steps += `   Montando a conta:<br><br>`;
+            steps += `     ${numA}<br>`;
+            steps += `   + ${numB}<br>`;
+            steps += `   ---------<br>`;
+            const result = numA + numB;
+            steps += `     ${result}<br>`;
+        } else if (operation === 'subtract') {
+            steps += `2. Operação:<br><br> ${numA} - ${numB}<br><br><br>`;
+            steps += `   Montando a conta:<br><br>`;
+            steps += `     ${numA}<br>`;
+            steps += `   - ${numB}<br>`;
+            steps += `   ---------<br>`;
+            const result = numA - numB;
+            steps += `     ${result}<br>`;
+        } else if (operation === 'multiply') {
+            steps += `2. Operação:<br><br> ${numA} * ${numB}<br><br><br>`;
+            steps += `   Montando a conta:<br><br>`;
+            steps += `     ${numA}<br>`;
+            steps += `   * ${numB}<br>`;
+            steps += `   ---------<br>`;
+            const result = numA * numB;
+            steps += `     ${result}<br>`;
+        } else if (operation === 'divide') {
+            steps += `2. Operação:<br><br> ${numA} / ${numB}<br><br><br>`;
+            if (numB !== 0) {
+                steps += `   Montando a conta:<br><br>`;
+                steps += `     ${numA}<br>`;
+                steps += `   / ${numB}<br>`;
+                steps += `   ---------<br>`;
+                const result = numA / numB;
+                steps += `     ${result}<br>`;
+            } else {
+                steps += `   <br>Divisão por zero não é permitida.<br>`;
+            }
+        }
+    }
+
+    document.getElementById('stepsOutput').innerHTML = steps;
+}
 
         document.getElementById('binInputA').addEventListener('input', resetResultIfEmpty);
         document.getElementById('binInputB').addEventListener('input', resetResultIfEmpty);
