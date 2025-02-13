@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Conversor Numérico</title>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <title>Conversor numérico</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="stylesheet" href="style.css">
 </head>
@@ -14,11 +14,11 @@
     <div class="welcome-container" id="welcomeContainer">
         <h1 style="color: #ffce1c;">Projeto Integrador:</h1>
         <br>
-        <h1 style="line-height: 1.75;">Conversor Numérico</h1>
+        <h1 style="line-height: 1.75;">Conversor numérico</h1>
         <br>
         <br>
         <p>
-            Este projeto tem como objetivo fornecer uma ferramenta simples e eficiente para realizar operações binárias, números de decimal para binário e vice-versa, além de permitir cálculos básicos com números decimais.
+            Ferramenta simples de cálculo binário e decimal.
         </p>
         <br>
         <br>
@@ -31,16 +31,16 @@
             Curso: Engenharia da Computação - 2º período | UNITAU
         </div>
         
-        <button class="welcome-btn" onclick="startCalculadora()">Começar</button>
+        <button class="welcome-btn" onclick="startCalculadora()">Start</button>
     </div>
 
     <div class="wrapper">
         <div class="container">
-            <h1>Conversor Binário</h1>
+            <h1>Conversor binário</h1>
             <br>
             <input type="text" id="binInput" placeholder="Binário" oninput="convertToDecimal()">
             <div class="result">
-                <div>Resultado Decimal:</div>
+                <div>Resultado decimal:</div>
                 <br>
                 <div id="binToDecResult">0</div>
             </div>
@@ -49,14 +49,14 @@
 
             <input type="number" id="decInput" placeholder="Decimal" oninput="convertToBinary()">
             <div class="result">
-                <div>Resultado Binário:</div>
+                <div>Resultado binário:</div>
                 <br>
                 <div id="decToBinResult">0</div>
             </div>
         </div>
 
         <div class="container">
-            <h1 id="calcTitle">Calculadora Binária</h1>
+            <h1 id="calcTitle">Calculadora binária</h1>
             <br>
             <input type="text" id="binInputA" placeholder="Binário A">
             <input type="text" id="binInputB" placeholder="Binário B">
@@ -71,14 +71,14 @@
                 <br>
                 <div id="binCalcResult">0</div>
             </div>
-            <button class="toggle-btn" onclick="toggleBinaryDecimal()">Alternar para Decimal</button>
+            <button class="toggle-btn" onclick="toggleBinaryDecimal()">Alternar para decimal</button>
         </div>
     </div>
     <br>
     <button class="help-btn" onclick="toggleHelpPanel()">Ajuda</button>
 
     <div class="help-panel" id="helpPanel">
-        <h2>Ajuda e Explicações</h2>
+        <h2>Ajuda e explicações</h2>
         <br>
         <p style="color: #e2c542">O que são números binários, decimais e outras bases?</p>
         <p>Os números binários são representados por dois símbolos: 0 e 1. Eles são a base para o sistema de computação digital.</p>
@@ -95,12 +95,10 @@
     </div>
 
     <div class="credits">
-        Projeto Integrador: Conversor Numérico<br>
+        Projeto Integrador: Conversor e calculadora binária.<br>
         Alunos: Davi R. do Nascimento | João M. S. Ferreira | José O. S. Junior | Luiz G. M. Barbosa<br>
         Curso: Engenharia da Computação - 2º período | UNITAU
     </div>
-</body>
-</html>
     <script src="script.js"></script>
 </body>
 </html>
